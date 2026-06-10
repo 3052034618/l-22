@@ -167,3 +167,35 @@
   font-size: $font-size-sm;
   color: $color-text-tertiary;
 }
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+}
+
+.badge {
+  min-width: 36rpx;
+  height: 36rpx;
+  padding: 0 10rpx;
+  background: $color-error;
+  color: $color-text-white;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  border-radius: $radius-round;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.emptyState {
+  padding: $spacing-xl 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.emptyText {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}

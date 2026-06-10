@@ -1,0 +1,219 @@
+@use '@/styles/variables.scss' as *;
+
+.recordCard {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+  box-shadow: $shadow-card;
+  transition: all $transition-base;
+
+  &:active {
+    transform: scale(0.99);
+  }
+}
+
+.cardHeader {
+  display: flex;
+  gap: $spacing-md;
+  margin-bottom: $spacing-md;
+}
+
+.iconWrapper {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: $radius-md;
+  background: $color-primary-bg;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.icon {
+  font-size: 36rpx;
+}
+
+.headerContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.headerTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6rpx;
+  gap: $spacing-sm;
+}
+
+.typeName {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  @include text-ellipsis;
+  flex: 1;
+}
+
+.statusTag {
+  flex-shrink: 0;
+  padding: 6rpx 16rpx;
+  border-radius: $radius-round;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+}
+
+.headerMeta {
+  display: flex;
+  gap: $spacing-md;
+}
+
+.metaItem {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.cardBody {
+  margin-bottom: $spacing-md;
+}
+
+.description {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.photoRow {
+  display: flex;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-md;
+}
+
+.photoThumb {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: $radius-sm;
+  background: $color-bg-hover;
+}
+
+.photoMore {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: $radius-sm;
+  background: $color-bg-hover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.photoMoreText {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}
+
+.cardFooter {
+  padding-top: $spacing-md;
+  border-top: 1rpx solid $color-divider;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.carbonInfo {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.carbonLabel {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+}
+
+.carbonValueWrap {
+  display: flex;
+  align-items: baseline;
+  gap: 4rpx;
+}
+
+.carbonValue {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  color: $color-primary;
+}
+
+.carbonUnit {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.compactCard {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-md 0;
+  border-bottom: 1rpx solid $color-divider;
+
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  &:first-child {
+    padding-top: 0;
+  }
+
+  &:active {
+    opacity: 0.8;
+  }
+}
+
+.compactIcon {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: $radius-md;
+  background: $color-primary-bg;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  flex-shrink: 0;
+}
+
+.compactContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.compactHeader {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  margin-bottom: 4rpx;
+}
+
+.statusTagSmall {
+  flex-shrink: 0;
+  padding: 2rpx 10rpx;
+  border-radius: $radius-xs;
+  font-size: 20rpx;
+  font-weight: $font-weight-medium;
+}
+
+.compactMeta {
+  display: flex;
+}
+
+.metaText {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.compactCarbon {
+  flex-shrink: 0;
+  text-align: right;
+}

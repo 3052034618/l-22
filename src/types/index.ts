@@ -2,9 +2,12 @@ export interface StatCardData {
   label: string;
   value: string;
   unit: string;
+  icon?: string;
+  trend?: number;
+  trendText?: string;
+  isUpGood?: boolean;
   change?: string;
   changeType?: 'up' | 'down' | 'flat';
-  icon?: string;
 }
 
 export interface ActionType {
@@ -49,12 +52,16 @@ export interface RankItem {
 
 export interface StoreCompare {
   id: string;
+  storeId: string;
+  storeName: string;
   name: string;
   region: string;
+  rank?: number;
   energyIntensity: number;
   completionRate: number;
   bestPractice: string;
   carbonReduction: number;
+  carbonSaving?: number;
 }
 
 export interface Task {
@@ -63,6 +70,7 @@ export interface Task {
   description: string;
   deadline: string;
   publisher: string;
+  priority: 'high' | 'medium' | 'low';
   status: 'pending' | 'in_progress' | 'submitted' | 'returned' | 'completed';
   feedback?: string;
   returnReason?: string;

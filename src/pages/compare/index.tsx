@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { View, Text, ScrollView } from '@tarojs/components';
+import Taro from '@tarojs/taro';
 import classnames from 'classnames';
 import styles from './index.module.scss';
 import StoreItem from '@/components/StoreItem';
@@ -56,6 +57,13 @@ const ComparePage: React.FC = () => {
   const handleSortChange = (type: SortType) => {
     console.log('[Compare] 切换排序:', type);
     setSortType(type);
+  };
+
+  const handleStoreClick = (storeId: string) => {
+    console.log('[Compare] 点击门店:', storeId);
+    Taro.navigateTo({
+      url: `/pages/store-detail/index?id=${storeId}`
+    });
   };
 
   const sortOptions = [
@@ -126,10 +134,11 @@ const ComparePage: React.FC = () => {
           {filteredStores.length > 0 ? (
             filteredStores.map((store, index) => (
               <StoreItem
-                key={store.id}
+                key={store.storeId}
                 data={store}
                 rank={index + 1}
-                isCurrentStore={store.id === 's003'}
+                isCurrentStore={store.storeId === 's003'}
+                onClick={() => handleStoreClick(store.storeId)}
               />
             ))
           ) : (

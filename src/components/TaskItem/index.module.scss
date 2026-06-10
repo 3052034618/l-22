@@ -44,13 +44,22 @@
 
 .taskMeta {
   display: flex;
-  flex-direction: column;
-  gap: 4rpx;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: $spacing-md;
 }
 
 .metaItem {
   font-size: $font-size-xs;
   color: $color-text-tertiary;
+}
+
+.priorityTag {
+  flex-shrink: 0;
+  padding: 4rpx 12rpx;
+  border-radius: $radius-xs;
+  font-size: 20rpx;
+  font-weight: $font-weight-medium;
 }
 
 .expandIcon {
@@ -60,19 +69,15 @@
   transform: translateY(-50%);
 }
 
-.arrowDown,
-.arrowUp {
+.arrow {
   font-size: 36rpx;
   color: $color-text-tertiary;
   transition: transform $transition-base;
+  transform: rotate(-90deg);
 }
 
 .arrowUp {
   transform: rotate(90deg);
-}
-
-.arrowDown {
-  transform: rotate(-90deg);
 }
 
 .taskDetail {
@@ -90,12 +95,17 @@
   }
 }
 
+.detailLabelRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-sm;
+}
+
 .detailLabel {
   font-size: $font-size-sm;
   font-weight: $font-weight-medium;
   color: $color-text-secondary;
-  margin-bottom: $spacing-sm;
-  display: block;
 }
 
 .detailText {
@@ -152,6 +162,19 @@
   }
 }
 
+.wordCount {
+  text-align: right;
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  margin-top: $spacing-xs;
+}
+
+.feedbackView {
+  padding: $spacing-md;
+  background: $color-bg-page;
+  border-radius: $radius-md;
+}
+
 .actionRow {
   display: flex;
   gap: $spacing-md;
@@ -159,40 +182,56 @@
   justify-content: flex-end;
 }
 
-.cancelBtn {
-  @include button-reset;
+.actionBtn {
   height: $button-height-md;
   padding: 0 $spacing-lg;
   border-radius: $radius-button;
-  background: $color-bg-hover;
-  color: $color-text-secondary;
-  font-size: $font-size-sm;
-  font-weight: $font-weight-medium;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all $transition-base;
 
   &:active {
-    opacity: 0.8;
+    transform: scale(0.98);
+    opacity: 0.9;
+  }
+}
+
+.actionBtnText {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+}
+
+.startBtn {
+  background: $color-warning-bg;
+  border: 2rpx solid $color-warning;
+
+  .actionBtnText {
+    color: $color-warning;
+  }
+}
+
+.cancelBtn {
+  background: $color-bg-hover;
+
+  .cancelBtnText {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-secondary;
   }
 }
 
 .submitBtn {
-  @include button-reset;
-  height: $button-height-md;
-  padding: 0 $spacing-lg;
-  border-radius: $radius-button;
   background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
-  color: $color-text-white;
-  font-size: $font-size-sm;
-  font-weight: $font-weight-medium;
 
-  &:active {
-    opacity: 0.9;
-    transform: scale(0.98);
+  .submitBtnText {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-white;
   }
 }
 
 .editLink {
-  margin-top: $spacing-sm;
-  text-align: right;
   font-size: $font-size-sm;
   color: $color-primary;
 }

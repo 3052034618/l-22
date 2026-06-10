@@ -8,10 +8,11 @@ interface StoreItemProps {
   data: StoreCompare;
   rank: number;
   isCurrentStore?: boolean;
+  onClick?: () => void;
 }
 
-const StoreItem: React.FC<StoreItemProps> = ({ data, rank, isCurrentStore = false }) => {
-  const { name, region, energyIntensity, completionRate, bestPractice, carbonReduction } = data;
+const StoreItem: React.FC<StoreItemProps> = ({ data, rank, isCurrentStore = false, onClick }) => {
+  const { storeName, region, energyIntensity, completionRate, bestPractice, carbonReduction } = data;
 
   const getRankBadgeClass = () => {
     if (rank === 1) return styles.rankBadge1;
@@ -21,14 +22,14 @@ const StoreItem: React.FC<StoreItemProps> = ({ data, rank, isCurrentStore = fals
   };
 
   return (
-    <View className={classnames(styles.storeItem, isCurrentStore && styles.current)}>
+    <View className={classnames(styles.storeItem, isCurrentStore && styles.current)} onClick={onClick}>
       <View className={styles.storeHeader}>
         <View className={classnames(styles.rankBadge, getRankBadgeClass())}>
           <Text className={classnames(styles.rankText, rank <= 3 && styles.rankTextTop)}>{rank}</Text>
         </View>
         <View className={styles.storeInfo}>
           <Text className={styles.storeName}>
-            {name}
+            {storeName}
             {isCurrentStore && <Text className={styles.currentTag}>本店</Text>}
           </Text>
           <Text className={styles.region}>{region}</Text>

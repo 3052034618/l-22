@@ -4,10 +4,216 @@
   min-height: 100vh;
   background: $color-bg-page;
   padding-bottom: 160rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.scrollContent {
+  flex: 1;
+  height: 0;
 }
 
 .content {
   padding: $spacing-lg $page-padding;
+}
+
+.pageTabs {
+  display: flex;
+  background: $color-bg-card;
+  padding: $spacing-sm;
+  margin: $spacing-md $page-padding;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-card;
+}
+
+.pageTab {
+  flex: 1;
+  height: 72rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-radius: $radius-md;
+  transition: all $transition-base;
+
+  &.active {
+    background: $color-primary-bg;
+
+    .pageTabText {
+      color: $color-primary;
+      font-weight: $font-weight-semibold;
+    }
+  }
+}
+
+.pageTabText {
+  font-size: $font-size-md;
+  color: $color-text-secondary;
+  transition: all $transition-base;
+}
+
+.pendingBadge {
+  position: absolute;
+  top: 8rpx;
+  right: 40rpx;
+  min-width: 32rpx;
+  height: 32rpx;
+  padding: 0 8rpx;
+  background: $color-error;
+  color: $color-text-white;
+  font-size: 20rpx;
+  font-weight: $font-weight-semibold;
+  border-radius: $radius-round;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.recordsPage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0 $page-padding;
+}
+
+.recordsHeader {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+  box-shadow: $shadow-card;
+}
+
+.recordsStats {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.statItem {
+  text-align: center;
+}
+
+.statNum {
+  font-size: $font-size-xxl;
+  font-weight: $font-weight-bold;
+  color: $color-primary;
+  display: block;
+  margin-bottom: 4rpx;
+}
+
+.statLabel {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.statDivider {
+  width: 1rpx;
+  height: 60rpx;
+  background: $color-divider;
+}
+
+.filterTabs {
+  display: flex;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-md;
+  flex-wrap: wrap;
+}
+
+.filterTab {
+  padding: $spacing-sm $spacing-md;
+  border-radius: $radius-button;
+  background: $color-bg-card;
+  box-shadow: $shadow-light;
+  transition: all $transition-base;
+
+  &.active {
+    background: $color-primary;
+
+    .filterTabText {
+      color: $color-text-white;
+      font-weight: $font-weight-medium;
+    }
+  }
+}
+
+.filterTabText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+}
+
+.recordsList {
+  flex: 1;
+  height: 0;
+}
+
+.recordsContent {
+  padding-bottom: $spacing-lg;
+}
+
+.recordsEmpty {
+  padding: 120rpx 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-md;
+}
+
+.emptyIcon {
+  font-size: 80rpx;
+}
+
+.emptyText {
+  font-size: $font-size-md;
+  color: $color-text-tertiary;
+}
+
+.emptyBtn {
+  margin-top: $spacing-sm;
+  padding: $spacing-sm $spacing-xl;
+  background: $color-primary;
+  border-radius: $radius-button;
+
+  &:active {
+    opacity: 0.9;
+  }
+}
+
+.emptyBtnText {
+  font-size: $font-size-sm;
+  color: $color-text-white;
+  font-weight: $font-weight-medium;
+}
+
+.addPhoto {
+  width: 100%;
+  padding-bottom: 100%;
+  border-radius: $radius-md;
+  border: 2rpx dashed $color-border;
+  position: relative;
+  background: $color-bg-hover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.addPhotoIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+  font-size: 48rpx;
+  color: $color-text-tertiary;
+}
+
+.addPhotoText {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
 }
 
 .section {
@@ -162,25 +368,6 @@
   color: #fff;
   font-size: 24rpx;
   z-index: 1;
-}
-
-.addPhoto {
-  width: 100%;
-  padding-bottom: 100%;
-  border-radius: $radius-md;
-  border: 2rpx dashed $color-border;
-  position: relative;
-  background: $color-bg-hover;
-
-  &::after {
-    content: '+';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 48rpx;
-    color: $color-text-tertiary;
-  }
 }
 
 .bottomBar {
