@@ -1,0 +1,209 @@
+@use '@/styles/variables.scss' as *;
+
+.taskCard {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  margin-bottom: $spacing-md;
+  box-shadow: $shadow-card;
+  overflow: hidden;
+  transition: all $transition-base;
+}
+
+.taskHeader {
+  padding: $spacing-lg;
+  position: relative;
+
+  &:active {
+    background: $color-bg-hover;
+  }
+}
+
+.taskTitleRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-sm;
+}
+
+.taskTitle {
+  flex: 1;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  line-height: 1.4;
+}
+
+.statusTag {
+  flex-shrink: 0;
+  padding: 6rpx 16rpx;
+  border-radius: $radius-round;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+}
+
+.taskMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.metaItem {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.expandIcon {
+  position: absolute;
+  right: $spacing-lg;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.arrowDown,
+.arrowUp {
+  font-size: 36rpx;
+  color: $color-text-tertiary;
+  transition: transform $transition-base;
+}
+
+.arrowUp {
+  transform: rotate(90deg);
+}
+
+.arrowDown {
+  transform: rotate(-90deg);
+}
+
+.taskDetail {
+  padding: 0 $spacing-lg $spacing-lg;
+  border-top: 1rpx solid $color-divider;
+}
+
+.detailSection {
+  padding-top: $spacing-lg;
+
+  & + & {
+    margin-top: $spacing-md;
+    padding-top: $spacing-md;
+    border-top: 1rpx solid $color-divider;
+  }
+}
+
+.detailLabel {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-text-secondary;
+  margin-bottom: $spacing-sm;
+  display: block;
+}
+
+.detailText {
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  line-height: 1.7;
+}
+
+.returnSection {
+  margin-top: $spacing-md;
+  padding: $spacing-md;
+  background: rgba(245, 63, 63, 0.08);
+  border-radius: $radius-md;
+  border-left: 6rpx solid $color-error;
+}
+
+.returnHeader {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  margin-bottom: $spacing-xs;
+}
+
+.returnIcon {
+  font-size: 28rpx;
+}
+
+.returnTitle {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-error;
+}
+
+.returnText {
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  line-height: 1.6;
+}
+
+.feedbackInput {
+  width: 100%;
+  min-height: 160rpx;
+  padding: $spacing-md;
+  border-radius: $radius-md;
+  border: 2rpx solid $color-border;
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  background: $color-bg-card;
+  box-sizing: border-box;
+  line-height: 1.6;
+
+  &:focus {
+    border-color: $color-primary;
+  }
+}
+
+.actionRow {
+  display: flex;
+  gap: $spacing-md;
+  margin-top: $spacing-md;
+  justify-content: flex-end;
+}
+
+.cancelBtn {
+  @include button-reset;
+  height: $button-height-md;
+  padding: 0 $spacing-lg;
+  border-radius: $radius-button;
+  background: $color-bg-hover;
+  color: $color-text-secondary;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+
+  &:active {
+    opacity: 0.8;
+  }
+}
+
+.submitBtn {
+  @include button-reset;
+  height: $button-height-md;
+  padding: 0 $spacing-lg;
+  border-radius: $radius-button;
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  color: $color-text-white;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+
+  &:active {
+    opacity: 0.9;
+    transform: scale(0.98);
+  }
+}
+
+.editLink {
+  margin-top: $spacing-sm;
+  text-align: right;
+  font-size: $font-size-sm;
+  color: $color-primary;
+}
+
+.detailFooter {
+  margin-top: $spacing-lg;
+  padding-top: $spacing-md;
+  border-top: 1rpx solid $color-divider;
+}
+
+.createTime {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}

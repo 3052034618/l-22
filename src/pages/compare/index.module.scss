@@ -1,0 +1,129 @@
+@use '@/styles/variables.scss' as *;
+
+.pageContainer {
+  min-height: 100vh;
+  background: $color-bg-page;
+  padding-bottom: 40rpx;
+}
+
+.header {
+  background: linear-gradient(180deg, $color-primary 0%, $color-primary-light 100%);
+  padding: $spacing-lg $page-padding 48rpx;
+  color: $color-text-white;
+}
+
+.headerTitle {
+  font-size: $font-size-xxl;
+  font-weight: $font-weight-bold;
+  margin-bottom: $spacing-xs;
+  display: block;
+}
+
+.headerSubtitle {
+  font-size: $font-size-sm;
+  opacity: 0.8;
+}
+
+.regionTabs {
+  display: flex;
+  gap: $spacing-sm;
+  padding: $spacing-md $page-padding;
+  background: $color-bg-page;
+  overflow-x: auto;
+  white-space: nowrap;
+
+  @include scroll-x-container;
+}
+
+.regionTab {
+  @include scroll-x-item(auto);
+  flex-shrink: 0;
+  padding: $spacing-sm $spacing-lg;
+  border-radius: $radius-button;
+  background: $color-bg-card;
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  box-shadow: $shadow-card;
+  transition: all $transition-base;
+
+  &.active {
+    background: $color-primary;
+    color: $color-text-white;
+    font-weight: $font-weight-medium;
+  }
+}
+
+.content {
+  padding: $spacing-md $page-padding;
+}
+
+.summaryCard {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-lg;
+  box-shadow: $shadow-card;
+  display: flex;
+  justify-content: space-around;
+}
+
+.summaryItem {
+  text-align: center;
+}
+
+.summaryValue {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  color: $color-primary;
+  display: block;
+  margin-bottom: 4rpx;
+}
+
+.summaryLabel {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.sectionTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-md;
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+}
+
+.sortBar {
+  display: flex;
+  gap: $spacing-md;
+  margin-bottom: $spacing-md;
+}
+
+.sortItem {
+  display: flex;
+  align-items: center;
+  gap: 4rpx;
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+
+  &.active {
+    color: $color-primary;
+    font-weight: $font-weight-medium;
+  }
+}
+
+.sortIcon {
+  font-size: 20rpx;
+}
+
+.storeList {
+  margin-top: $spacing-md;
+}
+
+.emptyState {
+  text-align: center;
+  padding: $spacing-xl 0;
+  color: $color-text-tertiary;
+  font-size: $font-size-md;
+}

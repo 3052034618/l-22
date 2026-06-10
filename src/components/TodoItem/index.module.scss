@@ -1,0 +1,63 @@
+@use '@/styles/variables.scss' as *;
+
+.todoItem {
+  display: flex;
+  align-items: center;
+  padding: $spacing-lg 0;
+  border-bottom: 1rpx solid $color-divider;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.todoContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.todoHeader {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-sm;
+}
+
+.title {
+  flex: 1;
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $color-text-primary;
+  @include text-ellipsis;
+}
+
+.priorityTag {
+  flex-shrink: 0;
+  padding: 4rpx 12rpx;
+  border-radius: $radius-xs;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+}
+
+.todoFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.type {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.deadline {
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+}
+
+.arrow {
+  flex-shrink: 0;
+  margin-left: $spacing-sm;
+  font-size: 36rpx;
+  color: $color-text-tertiary;
+}

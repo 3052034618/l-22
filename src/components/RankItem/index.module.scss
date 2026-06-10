@@ -1,0 +1,93 @@
+@use '@/styles/variables.scss' as *;
+
+.rankItem {
+  display: flex;
+  align-items: center;
+  padding: $spacing-md $spacing-lg;
+  border-radius: $radius-md;
+  margin-bottom: $spacing-sm;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &.currentStore {
+    background: $color-primary-bg;
+  }
+}
+
+.rankNum {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: $radius-round;
+  background: $color-bg-hover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-text-secondary;
+  margin-right: $spacing-md;
+  flex-shrink: 0;
+}
+
+.rank1 {
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  color: #fff;
+}
+
+.rank2 {
+  background: linear-gradient(135deg, #C0C0C0 0%, #A0A0A0 100%);
+  color: #fff;
+}
+
+.rank3 {
+  background: linear-gradient(135deg, #CD7F32 0%, #B87333 100%);
+  color: #fff;
+}
+
+.storeInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.storeName {
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $color-text-primary;
+  @include text-ellipsis;
+  display: block;
+  margin-bottom: 4rpx;
+}
+
+.valueRow {
+  display: flex;
+  align-items: baseline;
+  gap: 4rpx;
+}
+
+.value {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.unit {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.change {
+  flex-shrink: 0;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  margin-left: $spacing-sm;
+
+  &Up {
+    color: $color-success;
+  }
+
+  &Down {
+    color: $color-error;
+  }
+}

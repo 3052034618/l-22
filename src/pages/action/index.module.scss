@@ -1,0 +1,243 @@
+@use '@/styles/variables.scss' as *;
+
+.pageContainer {
+  min-height: 100vh;
+  background: $color-bg-page;
+  padding-bottom: 160rpx;
+}
+
+.content {
+  padding: $spacing-lg $page-padding;
+}
+
+.section {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-lg;
+  box-shadow: $shadow-card;
+}
+
+.sectionTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  margin-bottom: $spacing-md;
+}
+
+.categoryTabs {
+  display: flex;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-lg;
+  flex-wrap: wrap;
+}
+
+.categoryTab {
+  padding: $spacing-sm $spacing-lg;
+  border-radius: $radius-button;
+  background: $color-bg-hover;
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  transition: all $transition-base;
+
+  &.active {
+    background: $color-primary;
+    color: $color-text-white;
+    font-weight: $font-weight-medium;
+  }
+}
+
+.actionList {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-md;
+}
+
+.formGroup {
+  margin-bottom: $spacing-lg;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.formLabel {
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $color-text-primary;
+  margin-bottom: $spacing-sm;
+  display: block;
+}
+
+.shiftOptions {
+  display: flex;
+  gap: $spacing-md;
+}
+
+.shiftOption {
+  flex: 1;
+  padding: $spacing-md;
+  border-radius: $radius-md;
+  border: 2rpx solid $color-border;
+  text-align: center;
+  transition: all $transition-base;
+
+  &.active {
+    border-color: $color-primary;
+    background: $color-primary-bg;
+  }
+}
+
+.shiftLabel {
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $color-text-primary;
+  display: block;
+  margin-bottom: 4rpx;
+}
+
+.shiftTime {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.textarea {
+  width: 100%;
+  min-height: 180rpx;
+  padding: $spacing-md;
+  border-radius: $radius-md;
+  border: 2rpx solid $color-border;
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  background: $color-bg-card;
+  box-sizing: border-box;
+  line-height: 1.6;
+
+  &:focus {
+    border-color: $color-primary;
+  }
+}
+
+.wordCount {
+  text-align: right;
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  margin-top: $spacing-xs;
+}
+
+.photoGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: $spacing-sm;
+}
+
+.photoItem {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+  border-radius: $radius-md;
+  overflow: hidden;
+  background: $color-bg-hover;
+}
+
+.photoImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.photoDelete {
+  position: absolute;
+  top: -8rpx;
+  right: -8rpx;
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 24rpx;
+  z-index: 1;
+}
+
+.addPhoto {
+  width: 100%;
+  padding-bottom: 100%;
+  border-radius: $radius-md;
+  border: 2rpx dashed $color-border;
+  position: relative;
+  background: $color-bg-hover;
+
+  &::after {
+    content: '+';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 48rpx;
+    color: $color-text-tertiary;
+  }
+}
+
+.bottomBar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: $color-bg-card;
+  padding: $spacing-md $page-padding;
+  padding-bottom: calc(#{$spacing-md} + env(safe-area-inset-bottom));
+  box-shadow: 0 -4rpx 16rpx rgba(0, 0, 0, 0.06);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: $spacing-lg;
+}
+
+.summaryInfo {
+  flex: 1;
+}
+
+.summaryLabel {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  display: block;
+  margin-bottom: 4rpx;
+}
+
+.summaryValue {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $color-primary;
+}
+
+.submitBtn {
+  flex-shrink: 0;
+  padding: 0 48rpx;
+  height: $button-height-lg;
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  border-radius: $radius-button;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all $transition-base;
+
+  &:active {
+    transform: scale(0.98);
+    opacity: 0.9;
+  }
+
+  &.disabled {
+    background: $color-text-disabled;
+  }
+}
+
+.submitBtnText {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-white;
+}

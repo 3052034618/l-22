@@ -1,0 +1,153 @@
+@use '@/styles/variables.scss' as *;
+
+.storeItem {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+  box-shadow: $shadow-card;
+  transition: all $transition-base;
+
+  &:active {
+    transform: scale(0.99);
+  }
+
+  &.current {
+    border: 2rpx solid $color-primary;
+    box-shadow: 0 4rpx 20rpx rgba(0, 180, 42, 0.12);
+  }
+}
+
+.storeHeader {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  margin-bottom: $spacing-lg;
+}
+
+.rankBadge {
+  width: 56rpx;
+  height: 56rpx;
+  border-radius: $radius-round;
+  background: $color-bg-hover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.rankBadge1 {
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+}
+
+.rankBadge2 {
+  background: linear-gradient(135deg, #C0C0C0 0%, #A0A0A0 100%);
+}
+
+.rankBadge3 {
+  background: linear-gradient(135deg, #CD7F32 0%, #B87333 100%);
+}
+
+.rankText {
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  color: $color-text-secondary;
+}
+
+.rankTextTop {
+  color: #fff;
+}
+
+.storeInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.storeName {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  display: block;
+  margin-bottom: 4rpx;
+}
+
+.currentTag {
+  display: inline-block;
+  margin-left: $spacing-xs;
+  padding: 2rpx 12rpx;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  color: $color-primary;
+  background: $color-primary-bg;
+  border-radius: $radius-xs;
+  vertical-align: middle;
+}
+
+.region {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}
+
+.statsRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: $spacing-lg;
+  padding-bottom: $spacing-lg;
+  border-bottom: 1rpx solid $color-divider;
+}
+
+.statItem {
+  text-align: center;
+  flex: 1;
+}
+
+.statValue {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+  display: block;
+  margin-bottom: 4rpx;
+}
+
+.statLabel {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.practiceSection {
+  margin-bottom: $spacing-md;
+}
+
+.practiceLabel {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  margin-bottom: $spacing-xs;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-text-secondary;
+}
+
+.practiceIcon {
+  font-size: 28rpx;
+}
+
+.practiceText {
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  line-height: 1.6;
+}
+
+.progressBar {
+  height: 8rpx;
+  background: $color-bg-hover;
+  border-radius: $radius-round;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, $color-primary 0%, $color-primary-light 100%);
+  border-radius: $radius-round;
+  transition: width $transition-slow;
+}

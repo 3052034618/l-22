@@ -1,0 +1,85 @@
+@use '@/styles/variables.scss' as *;
+
+.actionCard {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+  border: 4rpx solid transparent;
+  position: relative;
+  transition: all $transition-base;
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &.selected {
+    box-shadow: 0 4rpx 20rpx rgba(0, 180, 42, 0.15);
+  }
+}
+
+.cardIcon {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: $radius-md;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: $spacing-md;
+}
+
+.icon {
+  font-size: 44rpx;
+}
+
+.cardContent {
+  margin-bottom: $spacing-md;
+}
+
+.name {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  display: block;
+  margin-bottom: $spacing-xs;
+}
+
+.description {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+}
+
+.carbonTag {
+  padding: 6rpx 16rpx;
+  border-radius: $radius-round;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+}
+
+.selectedBadge {
+  position: absolute;
+  top: -2rpx;
+  right: -2rpx;
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 0 $radius-lg 0 $radius-md;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.selectedIcon {
+  color: #fff;
+  font-size: 24rpx;
+  font-weight: $font-weight-bold;
+}

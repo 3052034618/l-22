@@ -1,0 +1,121 @@
+@use '@/styles/variables.scss' as *;
+
+.pageContainer {
+  min-height: 100vh;
+  background: $color-bg-page;
+}
+
+.header {
+  background: linear-gradient(180deg, $color-primary 0%, $color-primary-light 100%);
+  padding: $spacing-xl $page-padding 48rpx;
+  color: $color-text-white;
+}
+
+.headerTitle {
+  font-size: $font-size-xxl;
+  font-weight: $font-weight-bold;
+  margin-bottom: $spacing-xs;
+  display: block;
+}
+
+.headerStats {
+  display: flex;
+  gap: $spacing-lg;
+  margin-top: $spacing-md;
+}
+
+.headerStatItem {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+}
+
+.headerStatValue {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+}
+
+.headerStatLabel {
+  font-size: $font-size-xs;
+  opacity: 0.8;
+}
+
+.tabsContainer {
+  background: $color-bg-card;
+  margin: 0 $page-padding;
+  margin-top: -24rpx;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-card;
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.tabsRow {
+  display: flex;
+  padding: $spacing-xs;
+}
+
+.tabItem {
+  flex: 1;
+  padding: $spacing-sm 0;
+  text-align: center;
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  border-radius: $radius-md;
+  transition: all $transition-base;
+  position: relative;
+
+  &.active {
+    background: $color-primary-bg;
+    color: $color-primary;
+    font-weight: $font-weight-semibold;
+  }
+}
+
+.tabBadge {
+  position: absolute;
+  top: 6rpx;
+  right: 12rpx;
+  min-width: 28rpx;
+  height: 28rpx;
+  padding: 0 6rpx;
+  border-radius: $radius-round;
+  background: $color-error;
+  color: #fff;
+  font-size: 18rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  padding: $spacing-md $page-padding;
+  padding-bottom: 40rpx;
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 0;
+}
+
+.emptyIcon {
+  font-size: 80rpx;
+  margin-bottom: $spacing-md;
+  opacity: 0.5;
+}
+
+.emptyText {
+  font-size: $font-size-md;
+  color: $color-text-tertiary;
+}
+
+.markAllRead {
+  text-align: right;
+  padding: $spacing-sm 0;
+  font-size: $font-size-sm;
+  color: $color-primary;
+}

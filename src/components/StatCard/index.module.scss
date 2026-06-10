@@ -1,0 +1,74 @@
+@use '@/styles/variables.scss' as *;
+
+.statCard {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+
+  &.large {
+    padding: $spacing-xl;
+  }
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.icon {
+  font-size: 36rpx;
+}
+
+.label {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: 1.4;
+}
+
+.cardBody {
+  display: flex;
+  align-items: baseline;
+  gap: $spacing-xs;
+}
+
+.value {
+  font-size: $font-size-xxl;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+  line-height: 1.2;
+}
+
+.unit {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  margin-top: $spacing-xs;
+}
+
+.change {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+
+  &Up {
+    color: $color-success;
+  }
+
+  &Down {
+    color: $color-error;
+  }
+}
+
+.changeLabel {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
