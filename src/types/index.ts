@@ -23,6 +23,7 @@ export interface ActionRecord {
   id: string;
   typeId: string;
   typeName: string;
+  category: string;
   shift: 'morning' | 'afternoon' | 'night';
   shiftName: string;
   description: string;
@@ -38,6 +39,7 @@ export interface TodoTask {
   deadline: string;
   priority: 'high' | 'medium' | 'low';
   type: string;
+  isDaily?: boolean;
 }
 
 export interface RankItem {
@@ -62,6 +64,26 @@ export interface StoreCompare {
   bestPractice: string;
   carbonReduction: number;
   carbonSaving?: number;
+  energyTrend?: { month: string; value: number; baseline: number }[];
+  completionTrend?: { month: string; value: number }[];
+  goodPractices?: GoodPractice[];
+}
+
+export interface AuditLog {
+  id: string;
+  taskId: string;
+  status: string;
+  statusText: string;
+  operator: string;
+  time: string;
+  comment?: string;
+}
+
+export interface FeedbackVersion {
+  version: number;
+  content: string;
+  submitTime: string;
+  status: 'submitted' | 'returned' | 'approved';
 }
 
 export interface Task {
@@ -75,16 +97,20 @@ export interface Task {
   feedback?: string;
   returnReason?: string;
   createTime: string;
+  auditLogs?: AuditLog[];
+  feedbackHistory?: FeedbackVersion[];
+  currentVersion?: number;
 }
 
 export interface Message {
   id: string;
-  type: 'data_missing' | 'index_fluctuation' | 'review_result';
+  type: 'data_missing' | 'index_fluctuation' | 'review_result' | 'task_notice';
   title: string;
   content: string;
   time: string;
   read: boolean;
   relatedId?: string;
+  relatedType?: 'action' | 'task' | 'record';
 }
 
 export type ShiftType = 'morning' | 'afternoon' | 'night';
@@ -93,4 +119,30 @@ export interface ShiftOption {
   value: ShiftType;
   label: string;
   time: string;
+}
+
+export interface WeeklyData {
+  week: string;
+  carbonSaving: number;
+  actionCount: number;
+  taskCompletion: number;
+}
+
+export interface MonthlyDashboardData {
+  totalCarbonSaving: number;
+  actionCount: number;
+  taskCompletionRate: number;
+  categoryBreakdown: { category: string; name: string; count: number; carbonSaving: number }[];
+  weeklyTrend: WeeklyData[];
+  exceptions: { id: string; title: string; desc: string; level: 'high' | 'medium' | 'low' }[];
+}
+
+export interface GoodPractice {
+  id: string;
+  storeId: string;
+  title: string;
+  description: string;
+  effect: string;
+  category: string;
+  isFavorite?: boolean;
 }

@@ -1,0 +1,231 @@
+@use '@/styles/variables.scss' as *;
+
+.pageContainer {
+  min-height: 100vh;
+  background: $color-bg-page;
+}
+
+.headerCard {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  padding: $spacing-lg $page-padding $spacing-xl;
+  margin-bottom: $spacing-lg;
+}
+
+.headerTitle {
+  margin-bottom: $spacing-lg;
+}
+
+.headerTitleText {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-white;
+}
+
+.headerStats {
+  display: flex;
+  justify-content: space-between;
+}
+
+.headerStat {
+  flex: 1;
+  text-align: center;
+}
+
+.headerStatValue {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $color-text-white;
+  display: block;
+  margin-bottom: 4rpx;
+}
+
+.headerStatLabel {
+  font-size: $font-size-xs;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.section {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin: 0 $page-padding $spacing-lg;
+  box-shadow: $shadow-card;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-md;
+}
+
+.sectionTitle {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.sectionCount {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}
+
+.weekTabs {
+  display: flex;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-lg;
+  background: $color-bg-page;
+  padding: $spacing-xs;
+  border-radius: $radius-md;
+}
+
+.weekTab {
+  flex: 1;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: $radius-sm;
+  transition: all $transition-base;
+
+  &.active {
+    background: $color-bg-card;
+    box-shadow: $shadow-card;
+  }
+}
+
+.weekTabText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+
+  .active & {
+    color: $color-primary;
+    font-weight: $font-weight-medium;
+  }
+}
+
+.trendChart {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  height: 300rpx;
+  padding: 0 $spacing-lg;
+}
+
+.trendBarGroup {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.trendBar {
+  flex: 1;
+  width: 48rpx;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.trendBarFill {
+  width: 100%;
+  background: rgba(0, 180, 42, 0.3);
+  border-radius: 8rpx 8rpx 0 0;
+  position: relative;
+  transition: all 0.3s ease;
+
+  &.active {
+    background: linear-gradient(180deg, $color-primary 0%, $color-primary-light 100%);
+  }
+}
+
+.trendBarValue {
+  position: absolute;
+  top: -36rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  white-space: nowrap;
+}
+
+.trendBarLabel {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.categoryList {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.categoryItem {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+}
+
+.categoryInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.categoryName {
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  font-weight: $font-weight-medium;
+}
+
+.categoryCount {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.categoryBar {
+  height: 16rpx;
+  background: $color-bg-page;
+  border-radius: $radius-round;
+  overflow: hidden;
+}
+
+.categoryBarFill {
+  height: 100%;
+  border-radius: $radius-round;
+  transition: width 0.5s ease;
+}
+
+.categoryCarbon {
+  font-size: $font-size-xs;
+  color: $color-primary;
+  font-weight: $font-weight-medium;
+}
+
+.recordList {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.emptyState {
+  padding: $spacing-xl 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-md;
+}
+
+.emptyIcon {
+  font-size: 80rpx;
+}
+
+.emptyText {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}
+
+.bottomSpace {
+  height: 60rpx;
+}

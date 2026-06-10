@@ -156,6 +156,7 @@ const ActionPage: React.FC = () => {
         id: `record_${Date.now()}`,
         typeId: selectedAction.id,
         typeName: selectedAction.name,
+        category: selectedAction.category,
         shift: selectedShift,
         shiftName: getShiftName(selectedShift),
         description: description.trim(),

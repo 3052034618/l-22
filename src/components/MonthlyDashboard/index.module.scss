@@ -1,0 +1,209 @@
+.dashboardCard {
+  background: linear-gradient(135deg, #00B42A 0%, #009922 100%);
+  border-radius: 24rpx;
+  padding: 32rpx;
+  margin: 24rpx;
+  color: #fff;
+
+  .cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 28rpx;
+
+    .headerLeft {
+      .cardTitle {
+        font-size: 32rpx;
+        font-weight: 600;
+        margin-bottom: 4rpx;
+      }
+
+      .cardSubtitle {
+        font-size: 24rpx;
+        opacity: 0.8;
+      }
+    }
+
+    .moreBtn {
+      .moreText {
+        font-size: 24rpx;
+        opacity: 0.9;
+      }
+    }
+  }
+
+  .statsRow {
+    display: flex;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 16rpx;
+    padding: 24rpx 0;
+    margin-bottom: 28rpx;
+
+    .statItem {
+      flex: 1;
+      text-align: center;
+
+      .statValue {
+        font-size: 40rpx;
+        font-weight: 700;
+        line-height: 1.2;
+      }
+
+      .statUnit {
+        font-size: 22rpx;
+        opacity: 0.85;
+        margin-left: 4rpx;
+      }
+
+      .statLabel {
+        font-size: 22rpx;
+        opacity: 0.85;
+        margin-top: 4rpx;
+      }
+    }
+
+    .statDivider {
+      width: 2rpx;
+      background: rgba(255, 255, 255, 0.3);
+    }
+  }
+
+  .section {
+    margin-top: 24rpx;
+
+    .sectionTitleRow {
+      display: flex;
+      align-items: center;
+      gap: 12rpx;
+      margin-bottom: 16rpx;
+    }
+
+    .sectionTitle {
+      font-size: 26rpx;
+      font-weight: 500;
+      margin-bottom: 16rpx;
+      opacity: 0.95;
+    }
+
+    .exceptionBadge {
+      background: #F53F3F;
+      color: #fff;
+      font-size: 20rpx;
+      padding: 2rpx 12rpx;
+      border-radius: 20rpx;
+      min-width: 36rpx;
+      text-align: center;
+    }
+  }
+
+  .categoryList {
+    display: flex;
+    flex-direction: column;
+    gap: 16rpx;
+
+    .categoryItem {
+      .categoryInfo {
+        display: flex;
+        align-items: center;
+        gap: 12rpx;
+        margin-bottom: 8rpx;
+      }
+
+      .categoryDot {
+        width: 16rpx;
+        height: 16rpx;
+        border-radius: 50%;
+        background: #fff;
+      }
+
+      .catLighting {
+        background: #FFD180;
+      }
+
+      .catEquipment {
+        background: #8CC8FF;
+      }
+
+      .catPackaging {
+        background: #B8E9B8;
+      }
+
+      .catException {
+        background: #FFB3B3;
+      }
+
+      .categoryName {
+        font-size: 24rpx;
+        flex: 1;
+      }
+
+      .categoryCount {
+        font-size: 22rpx;
+        opacity: 0.85;
+      }
+
+      .categoryBar {
+        height: 8rpx;
+        background: rgba(255, 255, 255, 0.25);
+        border-radius: 4rpx;
+        overflow: hidden;
+
+        .categoryBarFill {
+          height: 100%;
+          border-radius: 4rpx;
+          background: #fff;
+        }
+      }
+    }
+  }
+
+  .exceptionList {
+    display: flex;
+    flex-direction: column;
+    gap: 16rpx;
+
+    .exceptionItem {
+      display: flex;
+      align-items: flex-start;
+      gap: 16rpx;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 12rpx;
+      padding: 16rpx 20rpx;
+
+      .exceptionLevel {
+        width: 12rpx;
+        height: 12rpx;
+        border-radius: 50%;
+        margin-top: 6rpx;
+        flex-shrink: 0;
+      }
+
+      .levelHigh {
+        background: #F53F3F;
+      }
+
+      .levelMedium {
+        background: #FF7D00;
+      }
+
+      .levelLow {
+        background: #FFD180;
+      }
+
+      .exceptionContent {
+        flex: 1;
+
+        .exceptionTitle {
+          font-size: 24rpx;
+          font-weight: 500;
+          margin-bottom: 4rpx;
+        }
+
+        .exceptionDesc {
+          font-size: 22rpx;
+          opacity: 0.8;
+        }
+      }
+    }
+  }
+}

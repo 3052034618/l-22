@@ -5,7 +5,8 @@ export default defineAppConfig({
     'pages/compare/index',
     'pages/task/index',
     'pages/message/index',
-    'pages/store-detail/index'
+    'pages/store-detail/index',
+    'pages/weekly-trend/index'
   ],
   window: {
     backgroundTextStyle: 'light',

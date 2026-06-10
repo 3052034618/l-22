@@ -5,7 +5,16 @@ import classnames from 'classnames';
 import styles from './index.module.scss';
 import TaskItem from '@/components/TaskItem';
 import { useAppStore } from '@/store/useAppStore';
-import type { Task } from '@/types';
+import type { Task, AuditLog, FeedbackVersion } from '@/types';
+
+const formatDateTime = (): string => {
+  const now = new Date();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  return `${now.getFullYear()}-${month}-${day} ${hours}:${minutes}`;
+};
 
 type TabType = 'all' | 'pending' | 'in_progress' | 'submitted' | 'returned' | 'completed';
 
@@ -19,7 +28,7 @@ const tabs: { key: TabType; label: string }[] = [
 ];
 
 const TaskPage: React.FC = () => {
-  const { tasks, updateTaskStatus } = useAppStore();
+  const { tasks, updateTaskStatus, addTaskFeedbackVersion } = useAppStore();
   const [activeTab, setActiveTab] = useState<TabType>('all');
 
   useDidShow(() => {
@@ -53,7 +62,29 @@ const TaskPage: React.FC = () => {
 
     setTimeout(() => {
       Taro.hideLoading();
-      updateTaskStatus(taskId, 'submitted', feedback);
+      
+      const task = tasks.find((t) => t.id === taskId);
+      const nextVersion = (task?.currentVersion || 0) + 1;
+      
+      const auditLog: AuditLog = {
+        id: `audit_${Date.now()}`,
+        status: 'submitted',
+        statusText: '已提交',
+        operator: '店长',
+        time: formatDateTime(),
+        comment: '提交任务反馈'
+      };
+      
+      const feedbackVersion: FeedbackVersion = {
+        version: nextVersion,
+        content: feedback,
+        submitTime: formatDateTime(),
+        status: 'submitted'
+      };
+      
+      addTaskFeedbackVersion(taskId, feedbackVersion);
+      updateTaskStatus(taskId, 'submitted', feedback, auditLog);
+      
       Taro.showToast({
         title: '提交成功',
         icon: 'success',
@@ -68,7 +99,29 @@ const TaskPage: React.FC = () => {
 
     setTimeout(() => {
       Taro.hideLoading();
-      updateTaskStatus(taskId, 'submitted', feedback);
+      
+      const task = tasks.find((t) => t.id === taskId);
+      const nextVersion = (task?.currentVersion || 0) + 1;
+      
+      const auditLog: AuditLog = {
+        id: `audit_${Date.now()}`,
+        status: 'submitted',
+        statusText: '重新提交',
+        operator: '店长',
+        time: formatDateTime(),
+        comment: '补充完善后重新提交'
+      };
+      
+      const feedbackVersion: FeedbackVersion = {
+        version: nextVersion,
+        content: feedback,
+        submitTime: formatDateTime(),
+        status: 'submitted'
+      };
+      
+      addTaskFeedbackVersion(taskId, feedbackVersion);
+      updateTaskStatus(taskId, 'submitted', feedback, auditLog);
+      
       Taro.showToast({
         title: '重新提交成功',
         icon: 'success',
@@ -79,7 +132,18 @@ const TaskPage: React.FC = () => {
 
   const handleTaskStart = (taskId: string) => {
     console.log('[Task] 开始处理任务:', taskId);
-    updateTaskStatus(taskId, 'in_progress');
+    
+    const auditLog: AuditLog = {
+      id: `audit_${Date.now()}`,
+      status: 'in_progress',
+      statusText: '开始处理',
+      operator: '店长',
+      time: formatDateTime(),
+      comment: '店长开始处理任务'
+    };
+    
+    updateTaskStatus(taskId, 'in_progress', undefined, auditLog);
+    
     Taro.showToast({
       title: '已开始处理',
       icon: 'none'

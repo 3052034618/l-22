@@ -179,7 +179,7 @@
 
   &.active {
     background: $color-bg-card;
-    box-shadow: $shadow-light;
+    box-shadow: $shadow-card;
 
     .trendTabText {
       color: $color-primary;
@@ -450,6 +450,65 @@
   font-size: $font-size-sm;
   color: $color-primary;
   font-weight: $font-weight-medium;
+}
+
+.practiceActions {
+  display: flex;
+  gap: $spacing-sm;
+  margin-top: $spacing-md;
+  padding-top: $spacing-md;
+  border-top: 1rpx solid $color-divider;
+}
+
+.actionBtn {
+  flex: 1;
+  height: 64rpx;
+  border-radius: $radius-button;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-xs;
+  transition: all $transition-base;
+
+  &:active {
+    transform: scale(0.98);
+    opacity: 0.9;
+  }
+}
+
+.actionBtnIcon {
+  font-size: 28rpx;
+}
+
+.actionBtnText {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+}
+
+.favBtn {
+  background: $color-bg-hover;
+  border: 2rpx solid $color-border;
+
+  .actionBtnText {
+    color: $color-text-secondary;
+  }
+
+  &.faved {
+    background: rgba(255, 159, 67, 0.1);
+    border-color: #FF9F43;
+
+    .actionBtnText {
+      color: #FF9F43;
+    }
+  }
+}
+
+.learnBtn {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+
+  .actionBtnText {
+    color: $color-text-white;
+  }
 }
 
 .infoList {

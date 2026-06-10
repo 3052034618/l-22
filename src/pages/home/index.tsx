@@ -6,9 +6,10 @@ import StatCard from '@/components/StatCard';
 import TodoItem from '@/components/TodoItem';
 import RankItem from '@/components/RankItem';
 import ActionRecordCard from '@/components/ActionRecordCard';
+import MonthlyDashboard from '@/components/MonthlyDashboard';
 import { rankList, actionTypes } from '@/data/mockData';
 import { useAppStore } from '@/store/useAppStore';
-import type { StatCardData } from '@/types';
+import type { StatCardData, MonthlyDashboardData } from '@/types';
 
 const HomePage: React.FC = () => {
   const {
@@ -17,7 +18,10 @@ const HomePage: React.FC = () => {
     currentStoreName,
     getTodayActionCount,
     getMonthCarbonReduction,
-    getPendingTaskCount
+    getPendingTaskCount,
+    getActionCategoryBreakdown,
+    getTaskCompletionRate,
+    isDailyTaskCompleted
   } = useAppStore();
 
   usePullDownRefresh(() => {
@@ -40,8 +44,8 @@ const HomePage: React.FC = () => {
   const statCards = useMemo((): StatCardData[] => {
     const monthCarbon = getMonthCarbonReduction();
     const todayCount = getTodayActionCount();
-    const pendingCount = getPendingTaskCount();
     const rank = 3;
+    const completionRate = getTaskCompletionRate();
 
     return [
       {
@@ -63,7 +67,7 @@ const HomePage: React.FC = () => {
       {
         icon: '✅',
         label: '完成率',
-        value: '87',
+        value: String(completionRate),
         unit: '%',
         trend: 5.2,
         trendText: '较上周'
@@ -78,20 +82,59 @@ const HomePage: React.FC = () => {
         isUpGood: true
       }
     ];
-  }, [actionRecords, getMonthCarbonReduction, getTodayActionCount, getPendingTaskCount]);
+  }, [actionRecords, getMonthCarbonReduction, getTodayActionCount, getTaskCompletionRate]);
+
+  const monthlyDashboard = useMemo((): MonthlyDashboardData => {
+    const categoryBreakdown = getActionCategoryBreakdown();
+    const totalCarbon = getMonthCarbonReduction();
+    const taskCompletion = getTaskCompletionRate();
+    
+    const exceptions = [
+      { id: 'ex_1', title: '能耗异常偏高', desc: '昨日晚班能耗较平日上升20%', level: 'high' as const },
+      { id: 'ex_2', title: '数据待补录', desc: '前日异常说明未提交', level: 'medium' as const }
+    ];
+
+    return {
+      totalCarbonSaving: totalCarbon,
+      actionCount: actionRecords.length,
+      taskCompletionRate: taskCompletion,
+      categoryBreakdown,
+      exceptions
+    };
+  }, [actionRecords, getActionCategoryBreakdown, getMonthCarbonReduction, getTaskCompletionRate]);
 
   const pendingTodos = useMemo(() => {
     const filtered = tasks.filter(
       (t) => t.status === 'pending' || t.status === 'in_progress' || t.status === 'returned'
     );
-    return filtered.slice(0, 3).map((t) => ({
+    
+    const dailyCompleted = isDailyTaskCompleted();
+    const todos = filtered.slice(0, 3).map((t) => ({
       id: t.id,
       title: t.title,
       priority: t.priority,
       type: t.title.includes('设备') ? '设备' : '节能',
       deadline: t.deadline
     }));
-  }, [tasks]);
+
+    if (!dailyCompleted) {
+      const dailyTodo = {
+        id: 'daily_fill',
+        title: '提交今日节能行动记录',
+        priority: 'high' as const,
+        type: '日常填报',
+        deadline: '今天 18:00'
+      };
+      return [dailyTodo, ...todos].slice(0, 3);
+    }
+
+    return todos;
+  }, [tasks, isDailyTaskCompleted]);
+
+  const handleDashboardClick = () => {
+    console.log('[Home] 点击月度看板');
+    Taro.navigateTo({ url: '/pages/weekly-trend/index' });
+  };
 
   const recentRecords = useMemo(() => {
     return actionRecords.slice(0, 3);
@@ -139,6 +182,8 @@ const HomePage: React.FC = () => {
             <StatCard key={card.label + index} data={card} />
           ))}
         </View>
+
+        <MonthlyDashboard data={monthlyDashboard} onClick={handleDashboardClick} />
 
         <View className={styles.section}>
           <View className={styles.sectionHeader}>

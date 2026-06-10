@@ -4,59 +4,12 @@ import Taro, { useRouter, useDidShow } from '@tarojs/taro';
 import classnames from 'classnames';
 import styles from './index.module.scss';
 import { storeCompareList } from '@/data/mockData';
-import type { StoreCompare } from '@/types';
-
-const energyTrendData = [
-  { month: '1月', value: 85, baseline: 100 },
-  { month: '2月', value: 82, baseline: 98 },
-  { month: '3月', value: 78, baseline: 95 },
-  { month: '4月', value: 75, baseline: 92 },
-  { month: '5月', value: 70, baseline: 88 },
-  { month: '6月', value: 67, baseline: 85 },
-];
-
-const completionTrendData = [
-  { month: '1月', value: 65 },
-  { month: '2月', value: 72 },
-  { month: '3月', value: 78 },
-  { month: '4月', value: 82 },
-  { month: '5月', value: 85 },
-  { month: '6月', value: 92 },
-];
-
-const goodPractices = [
-  {
-    id: 1,
-    title: '智能照明控制系统',
-    description: '安装人体感应传感器和光照传感器，实现人来灯亮、人走灯灭，根据自然光照自动调节灯光亮度。',
-    effect: '月度节电约 15%',
-    category: '照明空调'
-  },
-  {
-    id: 2,
-    title: '空调温度智能管理',
-    description: '夏季设置26℃基准温度，根据客流密度和室外温度动态调整，高峰时段提前预冷。',
-    effect: '月度空调节能约 12%',
-    category: '照明空调'
-  },
-  {
-    id: 3,
-    title: '设备定时巡检制度',
-    description: '建立每日设备巡检台账，及时发现并处理设备异常运行，避免无效能耗。',
-    effect: '设备运行效率提升 8%',
-    category: '设备管理'
-  },
-  {
-    id: 4,
-    title: '全员节能竞赛',
-    description: '开展班组节能竞赛，设立月度节能之星奖项，激发员工节能积极性。',
-    effect: '全员节能意识显著提升',
-    category: '管理创新'
-  }
-];
+import { useAppStore } from '@/store/useAppStore';
+import type { StoreCompare, GoodPractice } from '@/types';
 
 const StoreDetailPage: React.FC = () => {
   const router = useRouter();
+  const { toggleFavoritePractice, isPracticeFavorite, addMessage, addActionRecord } = useAppStore();
   const [storeId, setStoreId] = useState('');
   const [activeTab, setActiveTab] = useState<'energy' | 'completion'>('energy');
 
@@ -76,9 +29,14 @@ const StoreDetailPage: React.FC = () => {
     }
   });
 
+  const energyTrendData = storeInfo?.energyTrend || [];
+  const completionTrendData = storeInfo?.completionTrend || [];
+  const goodPractices = storeInfo?.goodPractices || [];
+
   const maxEnergyValue = useMemo(() => {
+    if (energyTrendData.length === 0) return 100;
     return Math.max(...energyTrendData.map((d) => Math.max(d.value, d.baseline)));
-  }, []);
+  }, [energyTrendData]);
 
   if (!storeInfo) {
     return (
@@ -97,12 +55,48 @@ const StoreDetailPage: React.FC = () => {
     return '';
   };
 
+  const handleToggleFavorite = (practice: GoodPractice) => {
+    console.log('[StoreDetail] 切换收藏:', practice.id);
+    toggleFavoritePractice(practice.id);
+    
+    const isFav = isPracticeFavorite(practice.id);
+    Taro.showToast({
+      title: isFav ? '已取消收藏' : '已收藏',
+      icon: 'none',
+      duration: 1500
+    });
+  };
+
+  const handleCreateLearningTask = (practice: GoodPractice) => {
+    console.log('[StoreDetail] 生成学习任务:', practice.id, practice.title);
+    
+    Taro.showModal({
+      title: '生成学习任务',
+      content: `是否基于「${practice.title}」生成本店学习任务？`,
+      confirmText: '生成',
+      cancelText: '取消',
+      success: (res) => {
+        if (res.confirm) {
+          Taro.showToast({
+            title: '学习任务已生成',
+            icon: 'success',
+            duration: 1500
+          });
+          
+          setTimeout(() => {
+            Taro.switchTab({ url: '/pages/task/index' });
+          }, 1000);
+        }
+      }
+    });
+  };
+
   return (
     <ScrollView className={styles.pageContainer} scrollY enhanced showScrollbar={false}>
       <View className={styles.header}>
         <View className={styles.headerContent}>
           <View className={styles.storeHeader}>
-            <View className={classnames(styles.rankBadge, getRankClass(storeInfo.rank))}>
+            <View className={classnames(styles.rankBadge, getRankClass(storeInfo.rank || 99))}>
               {storeInfo.rank}
             </View>
             <View className={styles.storeInfo}>
@@ -128,7 +122,7 @@ const StoreDetailPage: React.FC = () => {
           </View>
           <View className={styles.statDivider} />
           <View className={styles.statItem}>
-            <Text className={styles.statValue} style={{ color: '#FF7D00' }}>{storeInfo.carbonSaving}</Text>
+            <Text className={styles.statValue} style={{ color: '#FF7D00' }}>{storeInfo.carbonSaving || storeInfo.carbonReduction}</Text>
             <Text className={styles.statUnit}>kg</Text>
             <Text className={styles.statLabel}>累计减排</Text>
           </View>
@@ -211,11 +205,21 @@ const StoreDetailPage: React.FC = () => {
                   ))}
                 </View>
               </View>
-              <View className={styles.completionHighlight}>
-                <Text className={styles.highlightLabel}>本月完成率</Text>
-                <Text className={styles.highlightValue}>92%</Text>
-                <Text className={styles.highlightTrend}>↑ 较上月提升 7 个百分点</Text>
-              </View>
+              {completionTrendData.length > 0 && (
+                <View className={styles.completionHighlight}>
+                  <Text className={styles.highlightLabel}>本月完成率</Text>
+                  <Text className={styles.highlightValue}>
+                    {completionTrendData[completionTrendData.length - 1].value}%
+                  </Text>
+                  <Text className={styles.highlightTrend}>
+                    ↑ 较上月提升 {
+                      completionTrendData.length > 1
+                        ? completionTrendData[completionTrendData.length - 1].value - completionTrendData[completionTrendData.length - 2].value
+                        : 0
+                    } 个百分点
+                  </Text>
+                </View>
+              )}
             </View>
           )}
         </View>
@@ -226,21 +230,40 @@ const StoreDetailPage: React.FC = () => {
             <Text className={styles.sectionBadge}>{goodPractices.length}项</Text>
           </View>
           <View className={styles.practicesList}>
-            {goodPractices.map((practice) => (
-              <View key={practice.id} className={styles.practiceCard}>
-                <View className={styles.practiceHeader}>
-                  <Text className={styles.practiceTitle}>{practice.title}</Text>
-                  <View className={styles.practiceCategory}>
-                    {practice.category}
+            {goodPractices.map((practice) => {
+              const isFav = isPracticeFavorite(practice.id);
+              return (
+                <View key={practice.id} className={styles.practiceCard}>
+                  <View className={styles.practiceHeader}>
+                    <Text className={styles.practiceTitle}>{practice.title}</Text>
+                    <View className={styles.practiceCategory}>
+                      {practice.category}
+                    </View>
+                  </View>
+                  <Text className={styles.practiceDesc}>{practice.description}</Text>
+                  <View className={styles.practiceEffect}>
+                    <Text className={styles.effectIcon}>✨</Text>
+                    <Text className={styles.effectText}>{practice.effect}</Text>
+                  </View>
+                  <View className={styles.practiceActions}>
+                    <View
+                      className={classnames(styles.actionBtn, styles.favBtn, isFav && styles.faved)}
+                      onClick={() => handleToggleFavorite(practice)}
+                    >
+                      <Text className={styles.actionBtnIcon}>{isFav ? '⭐' : '☆'}</Text>
+                      <Text className={styles.actionBtnText}>{isFav ? '已收藏' : '收藏'}</Text>
+                    </View>
+                    <View
+                      className={classnames(styles.actionBtn, styles.learnBtn)}
+                      onClick={() => handleCreateLearningTask(practice)}
+                    >
+                      <Text className={styles.actionBtnIcon}>📚</Text>
+                      <Text className={styles.actionBtnText}>生成学习任务</Text>
+                    </View>
                   </View>
                 </View>
-                <Text className={styles.practiceDesc}>{practice.description}</Text>
-                <View className={styles.practiceEffect}>
-                  <Text className={styles.effectIcon}>✨</Text>
-                  <Text className={styles.effectText}>{practice.effect}</Text>
-                </View>
-              </View>
-            ))}
+              );
+            })}
           </View>
         </View>
 

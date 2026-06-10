@@ -17,8 +17,10 @@ const TaskItem: React.FC<TaskItemProps> = ({ data, onSubmit, onResubmit, onStart
   const [expanded, setExpanded] = useState(false);
   const [feedback, setFeedback] = useState(data.feedback || '');
   const [isEditing, setIsEditing] = useState(false);
+  const [showTimeline, setShowTimeline] = useState(false);
+  const [showHistory, setShowHistory] = useState(false);
 
-  const { title, description, deadline, publisher, status, returnReason, createTime, priority } = data;
+  const { title, description, deadline, publisher, status, returnReason, createTime, priority, auditLogs, feedbackHistory, currentVersion } = data;
   const statusColor = getStatusColor(status);
   const statusText = getStatusText(status);
   const priorityColor = getPriorityColor(priority);
@@ -26,6 +28,10 @@ const TaskItem: React.FC<TaskItemProps> = ({ data, onSubmit, onResubmit, onStart
 
   const handleToggleExpand = () => {
     setExpanded(!expanded);
+    if (expanded) {
+      setShowTimeline(false);
+      setShowHistory(false);
+    }
   };
 
   const handleFeedbackChange = (e: any) => {
@@ -78,6 +84,17 @@ const TaskItem: React.FC<TaskItemProps> = ({ data, onSubmit, onResubmit, onStart
   const showStartBtn = status === 'pending';
   const showSubmitBtn = isPendingOrProgress || isReturned || (isSubmitted && isEditing);
 
+  const getTimelineIcon = (logStatus: string): string => {
+    switch (logStatus) {
+      case 'pending': return '📋';
+      case 'in_progress': return '🔄';
+      case 'submitted': return '📤';
+      case 'returned': return '↩️';
+      case 'completed': return '✅';
+      default: return '📝';
+    }
+  };
+
   return (
     <View className={styles.taskCard}>
       <View className={styles.taskHeader} onClick={handleToggleExpand}>
@@ -125,12 +142,47 @@ const TaskItem: React.FC<TaskItemProps> = ({ data, onSubmit, onResubmit, onStart
           <View className={styles.detailSection}>
             <View className={styles.detailLabelRow}>
               <Text className={styles.detailLabel}>任务反馈</Text>
+              {feedbackHistory && feedbackHistory.length > 0 && (
+                <Text
+                  className={styles.detailLink}
+                  onClick={() => setShowHistory(!showHistory)}
+                >
+                  {showHistory ? '收起历史' : `历史版本(${currentVersion || 0})`} ›
+                </Text>
+              )}
               {isSubmitted && !isEditing && (
                 <Text className={styles.editLink} onClick={handleStartEdit}>
                   修改反馈 ›
                 </Text>
               )}
             </View>
+
+            {showHistory && feedbackHistory && feedbackHistory.length > 0 && (
+              <View className={styles.historyList}>
+                {[...feedbackHistory].reverse().map((version) => (
+                  <View key={version.version} className={styles.historyItem}>
+                    <View className={styles.historyHeader}>
+                      <Text className={styles.historyVersion}>
+                        v{version.version}
+                      </Text>
+                      <View
+                        className={classnames(
+                          styles.historyStatus,
+                          version.status === 'approved' && styles.statusApproved,
+                          version.status === 'returned' && styles.statusReturned,
+                          version.status === 'submitted' && styles.statusSubmitted
+                        )}
+                      >
+                        {version.status === 'approved' ? '已通过' :
+                         version.status === 'returned' ? '已退回' : '已提交'}
+                      </View>
+                      <Text className={styles.historyTime}>{version.submitTime}</Text>
+                    </View>
+                    <Text className={styles.historyContent}>{version.content}</Text>
+                  </View>
+                ))}
+              </View>
+            )}
 
             {canEdit || isEditing ? (
               <View>
@@ -182,6 +234,44 @@ const TaskItem: React.FC<TaskItemProps> = ({ data, onSubmit, onResubmit, onStart
               </View>
             )}
           </View>
+
+          {auditLogs && auditLogs.length > 0 && (
+            <View className={styles.detailSection}>
+              <View className={styles.detailLabelRow}>
+                <Text className={styles.detailLabel}>审核流转</Text>
+                <Text
+                  className={styles.detailLink}
+                  onClick={() => setShowTimeline(!showTimeline)}
+                >
+                  {showTimeline ? '收起' : '展开'} ›
+                </Text>
+              </View>
+              {showTimeline && (
+                <View className={styles.timeline}>
+                  {auditLogs.map((log, index) => (
+                    <View key={log.id} className={styles.timelineItem}>
+                      <View className={styles.timelineDot}>
+                        <Text className={styles.timelineIcon}>{getTimelineIcon(log.status)}</Text>
+                      </View>
+                      <View className={styles.timelineContent}>
+                        <View className={styles.timelineHeader}>
+                          <Text className={styles.timelineStatus}>{log.statusText}</Text>
+                          <Text className={styles.timelineTime}>{log.time}</Text>
+                        </View>
+                        <Text className={styles.timelineOperator}>{log.operator}</Text>
+                        {log.comment && (
+                          <Text className={styles.timelineComment}>{log.comment}</Text>
+                        )}
+                      </View>
+                      {index < auditLogs.length - 1 && (
+                        <View className={styles.timelineLine} />
+                      )}
+                    </View>
+                  ))}
+                </View>
+              )}
+            </View>
+          )}
 
           <View className={styles.detailFooter}>
             <Text className={styles.createTime}>发布时间：{createTime}</Text>
